@@ -16,14 +16,14 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-	const { thickness, color, width } = attributes;
+	const { thickness, color, width, borderStyle } = attributes;
 
 	return (
-		<div {...useBlockProps.save()}>
+		<div {...useBlockProps.save()} className="wp-block-wpvillain-line-block">
 			<hr
+				className="custom-line-block"
 				style={{
-					borderWidth: `${thickness}px`,
-					borderColor: color,
+					borderTop: `${thickness}px ${borderStyle} ${color || '#e0bd5f'}`,
 					width: width,
 				}}
 			/>

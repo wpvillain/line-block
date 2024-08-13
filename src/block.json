@@ -14,7 +14,7 @@
 	"attributes": {
 		"thickness": {
 			"type": "number",
-			"default": 2
+			"default": 1.5
 		},
 		"color": {
 			"type": "string",
@@ -22,7 +22,11 @@
 		},
 		"width": {
 			"type": "string",
-			"default": "100%"
+			"default": "120%"
+		},
+		"borderStyle": {
+			"type": "string",
+			"default": "solid"
 		}
 	},
 	"textdomain": "line-block",

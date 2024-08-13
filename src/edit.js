@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, ColorPalette, TextControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ColorPalette, TextControl, SelectControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,7 +31,7 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { thickness, color, width } = attributes;
+	const { thickness, color, width, borderStyle } = attributes;
 
 	return (
 		<>
@@ -46,7 +46,7 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 					<ColorPalette
 						value={color}
-						onChange={(value) => setAttributes({ color: value })}
+						onChange={(value) => setAttributes({ color: value || '#e0bd5f' })}
 					/>
 					<TextControl
 						label={__('Width', 'line-block')}
@@ -54,14 +54,23 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(value) => setAttributes({ width: value })}
 						help={__('Set the width as a percentage or in pixels (e.g., 100% or 300px).')}
 					/>
+					<SelectControl
+						label={__('Border Style', 'line-block')}
+						value={borderStyle}
+						options={[
+							{ label: __('Solid', 'line-block'), value: 'solid' },
+							{ label: __('Dotted', 'line-block'), value: 'dotted' },
+							{ label: __('Dashed', 'line-block'), value: 'dashed' },
+						]}
+						onChange={(value) => setAttributes({ borderStyle: value })}
+					/>
 				</PanelBody>
 			</InspectorControls>
 			<div {...useBlockProps()}>
 				<hr
+					className="custom-line-block"
 					style={{
-						borderWidth: `${thickness}px`,
-						borderStyle: 'solid', // Ensures the line is solid
-						borderColor: color,
+						borderTop: `${thickness}px ${borderStyle} ${color || '#e0bd5f'}`,
 						width: width,
 					}}
 				/>
