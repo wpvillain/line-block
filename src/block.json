@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "wpvillain/line-block",
+	"version": "0.1.0",
+	"title": "Line Block",
+	"category": "design",
+	"icon": "minus",
+	"description": "A block that adds a customizable line.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"thickness": {
+			"type": "number",
+			"default": 2
+		},
+		"color": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"width": {
+			"type": "string",
+			"default": "100%"
+		}
+	},
+	"textdomain": "line-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
