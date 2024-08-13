@@ -18,7 +18,7 @@
     },
     "color": {
       "type": "string",
-      "default": "#000000"
+      "default": "#e0bd5f"
     },
     "width": {
       "type": "string",

@@ -60,6 +60,7 @@ export default function Edit({ attributes, setAttributes }) {
 				<hr
 					style={{
 						borderWidth: `${thickness}px`,
+						borderStyle: 'solid', // Ensures the line is solid
 						borderColor: color,
 						width: width,
 					}}
