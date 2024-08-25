@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, ColorPalette, TextControl, SelectControl } from '@wordpress/components';
+import { PanelBody, ColorPalette, SelectControl, RangeControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,50 +31,52 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { thickness, color, width, borderStyle } = attributes;
+    const { width, borderColor, borderStyle, borderWidth } = attributes;
+    const blockProps = useBlockProps({
+        style: {
+            width,
+            borderTopColor: borderColor,
+            borderTopStyle: borderStyle,
+            borderTopWidth: borderWidth
+        }
+    });
 
-	return (
-		<>
-			<InspectorControls>
-				<PanelBody title={__('Line Settings', 'line-block')}>
-					<RangeControl
-						label={__('Thickness', 'line-block')}
-						value={thickness}
-						onChange={(value) => setAttributes({ thickness: value })}
-						min={1}
-						max={20}
-					/>
-					<ColorPalette
-						value={color}
-						onChange={(value) => setAttributes({ color: value || '#e0bd5f' })}
-					/>
-					<TextControl
-						label={__('Width', 'line-block')}
-						value={width}
-						onChange={(value) => setAttributes({ width: value })}
-						help={__('Set the width as a percentage or in pixels (e.g., 100% or 300px).')}
-					/>
-					<SelectControl
-						label={__('Border Style', 'line-block')}
-						value={borderStyle}
-						options={[
-							{ label: __('Solid', 'line-block'), value: 'solid' },
-							{ label: __('Dotted', 'line-block'), value: 'dotted' },
-							{ label: __('Dashed', 'line-block'), value: 'dashed' },
-						]}
-						onChange={(value) => setAttributes({ borderStyle: value })}
-					/>
-				</PanelBody>
-			</InspectorControls>
-			<div {...useBlockProps()}>
-				<hr
-					className="custom-line-block"
-					style={{
-						borderTop: `${thickness}px ${borderStyle} ${color || '#e0bd5f'}`,
-						width: width,
-					}}
-				/>
-			</div>
-		</>
-	);
+    return (
+        <>
+            <InspectorControls>
+                <PanelBody title={__("Line Settings", "hr-line")} initialOpen={true}>
+                    <RangeControl
+                        label={__("Width (%)", "hr-line")}
+                        value={parseInt(width)}
+                        onChange={(newWidth) => setAttributes({ width: `${newWidth}%` })}
+                        min={10}
+                        max={100}
+                    />
+                    <RangeControl
+                        label={__("Border Width (px)", "hr-line")}
+                        value={parseInt(borderWidth)}
+                        onChange={(newBorderWidth) => setAttributes({ borderWidth: `${newBorderWidth}px` })}
+                        min={1}
+                        max={10}
+                    />
+                    <SelectControl
+                        label={__("Border Style", "hr-line")}
+                        value={borderStyle}
+                        options={[
+                            { label: __("Solid", "hr-line"), value: "solid" },
+                            { label: __("Dashed", "hr-line"), value: "dashed" },
+                            { label: __("Dotted", "hr-line"), value: "dotted" }
+                        ]}
+                        onChange={(newBorderStyle) => setAttributes({ borderStyle: newBorderStyle })}
+                    />
+                    <ColorPalette
+                        label={__("Border Color", "hr-line")}
+                        value={borderColor}
+                        onChange={(newColor) => setAttributes({ borderColor: newColor })}
+                    />
+                </PanelBody>
+            </InspectorControls>
+            <hr {...blockProps} />
+        </>
+    );
 }
