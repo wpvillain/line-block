@@ -1,7 +1,7 @@
 {
 	"name": "line-block",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "A Line Block that allows you to create lines with chosen color and line type in the WordPress editor.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
